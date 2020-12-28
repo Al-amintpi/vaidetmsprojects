@@ -1,0 +1,14 @@
+.table-bordered {
+	border: 1px solid #e3e6f0;
+	box-shadow: 0px 10px 31px #00000082;
+}
+
+
+form {
+	padding: 20px;
+	box-sizing: border-box;
+}
+
+#locationerror{
+	display: none;
+}

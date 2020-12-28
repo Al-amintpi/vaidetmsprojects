@@ -1,0 +1,34 @@
+.verify-status {
+	background: #54ca68;
+	width: 16px;
+	color: #ffff;
+	border-radius: 50%;
+	height: 16px;
+	text-align: center;
+	display: inline-block;
+	line-height: 13px;
+	font-size: 11px;
+}
+
+.not-verify-status {
+	background: #fc544b;
+	width: 16px;
+	color: #ffff;
+	border-radius: 50%;
+	height: 16px;
+	text-align: center;
+	display: inline-block;
+	line-height: 13px;
+	font-size: 11px;
+}
+
+.filter_atts form {
+	display: flex;
+	align-items: center;
+}
+
+.filter_atts .form-group{
+	margin: 0px 20px;
+}
+
+ 
