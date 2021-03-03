@@ -21,6 +21,26 @@ if(isset($_POST['submit_class'])){
 		$stm = $pdo->prepare("INSERT INTO em_class(user_id,class_name,class_description,date_time)VALUES(?,?,?,?)");
 		$stm->execute(array($user_id,$class_name,$class_description,$today));
 		$success = "Class Submitted Successfull";
+				$sub = "New class Submitted";
+		$messages = "Create New class";
+		$messages.='
+		<table>
+    		<tr>
+    		    <td>Employee Name</td>
+    		    <td>'.em_user($user_id,"first_name")." ".em_user($user_id,"last_name").'</td>
+    		</tr>
+		    <tr>
+    		    <td>Class Name</td>
+    		    <td>'.$class_name.'</td>
+    		 </tr>  
+    		 <tr>
+    		    <td>Class Details</td>
+    		    <td>'.$class_description.'</td>
+		    </tr> 
+		</table>
+		
+		';
+		admin_Email($sub,$messages);
 	}
 }
 

@@ -1,5 +1,11 @@
  <?php require_once('header.php');
-$user_id = $_SESSION['em_user'][0]['u_id'];
+if(isset($_COOKIE['rememberUser'])){
+        $user_id=$_COOKIE['rememberUser'];
+        
+}
+else{
+    $user_id = $_SESSION['em_user'][0]['u_id'];
+}
 
  ?>
 
@@ -52,10 +58,13 @@ $user_id = $_SESSION['em_user'][0]['u_id'];
             				else if ($status == "Completed") {
             					echo "<span class='badge badge-success'>Comlete</span>";
             				}
+                            else if ($status == "NotApproved") {
+                                echo "<span class='badge badge-primary'>Comlete</span>";
+                            }
 
             			 ?>
                     </td>
-                    <td><a href="#" class="btn btn-info btn-sm"><i class="fa fa-eye"></i>View</a></td>
+                    <td><a href="ViewTask.php?tid=<?php echo $row['t_id']; ?>" class="btn btn-info btn-sm"><i class="fa fa-eye"></i>View</a></td>
                 </tr>
             <?php endforeach ?>
             </tbody>

@@ -27,6 +27,8 @@ $ad_id = $_SESSION['em_admin'][0]['ad_id'];
   <link rel="stylesheet" href="assets/css/app.min.css">
   <link rel="stylesheet" href="assets/bundles/datatables/datatables.min.css">
   <link rel="stylesheet" href="assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+  
+  <link rel="stylesheet" href="assets/bundles/summernote/summernote-bs4.css">
   <!-- Template CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/components.css">
@@ -62,6 +64,106 @@ $ad_id = $_SESSION['em_admin'][0]['ad_id'];
           </ul>
         </div>
         <ul class="navbar-nav navbar-right">
+          <li class="dropdown dropdown-list-toggle">
+            <a href="#" id="adnotification" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle"><i data-feather="bell"></i> 
+              <span class="badge headerBadge1" id="adminnotification">
+              </span> </a>
+
+            <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
+              <div class="dropdown-header">
+                Notification
+                 
+              </div>
+              <div class="dropdown-list-content dropdown-list-message">
+
+                <?php
+                $stm = $pdo->prepare("SELECT * FROM em_task WHERE task_read=? AND status=? ORDER BY t_id DESC");
+                $stm->execute(array(0,"Submitted"));
+                $result = $stm->fetchAll(PDO::FETCH_ASSOC);
+                foreach($result as $row):
+
+                 ?>
+                <a href="#" class="dropdown-item" data-table="em_task" data-id="<?php echo $row['t_id'];?>"> <span class="dropdown-item-avatar
+                      text-white"> <img alt="image" src="<?php
+
+                      $photo = em_user($row['user_id'],'photo');
+                      if($photo==null){
+                        echo "../assets/img/undraw_profile.svg";
+                      }
+                      else{
+                        echo "../profilephotos/".$photo;
+                      }
+
+                       ?>" class="rounded-circle">
+                  </span> <span class="dropdown-item-desc"> <span class="message-user">
+                    <?php echo em_user($row['user_id'],'first_name')." ".em_user($row['user_id'],'last_name'); ?>
+                  </span>
+                    <span class="time messege-text"><?php echo $row['task_name']; ?></span>
+                    <span class="time">
+                      <?php
+
+                        $datetime1 = date_create($row['date_time']);
+                        $datetime2 = date_create(date('Y-m-d H:i:s'));
+                        $interval = date_diff($datetime1, $datetime2);
+                        $total_time = $interval->format('%h Hr %i Min Ago');
+                        
+                        $days = $interval->format('%a');
+                        if($days!=0){
+                          echo $days." Days Ago";
+                        }else{ 
+                          echo $total_time;
+                        }
+                       ?>
+                    </span>
+                  </span>
+                </a>
+              <?php endforeach; ?>
+
+                <?php
+                $stm = $pdo->prepare("SELECT * FROM em_class WHERE class_read=? ORDER BY c_id DESC");
+                $stm->execute(array(0));
+                $result = $stm->fetchAll(PDO::FETCH_ASSOC);
+                foreach($result as $row):
+
+                 ?>
+                <a href="#" class="dropdown-item" data-table="em_class" data-id="<?php echo $row['c_id'];?>"> <span class="dropdown-item-avatar
+                      text-white"> <img alt="image" src="<?php
+
+                      $photo = em_user($row['user_id'],'photo');
+                      if($photo==null){
+                        echo "../assets/img/undraw_profile.svg";
+                      }
+                      else{
+                        echo "../profilephotos/".$photo;
+                      }
+
+                       ?>" class="rounded-circle">
+                  </span> <span class="dropdown-item-desc"> <span class="message-user">
+                    <?php echo em_user($row['user_id'],'first_name')." ".em_user($row['user_id'],'last_name'); ?>
+                  </span>
+                    <span class="time messege-text"><?php echo $row['class_name']; ?></span>
+                    <span class="time">
+                      <?php
+
+                        $datetime1 = date_create($row['date_time']);
+                        $datetime2 = date_create(date('Y-m-d H:i:s'));
+                        $interval = date_diff($datetime1, $datetime2);
+                        $total_time = $interval->format('%h Hr %i Min Ago');
+                        
+                        $days = $interval->format('%a');
+                        if($days!=0){
+                          echo $days." Days Ago";
+                        }else{ 
+                          echo $total_time;
+                        }
+                       ?>
+                    </span>
+                  </span>
+                </a>
+              <?php endforeach; ?>
+              </div>
+            </div>
+          </li>
           <li class="dropdown"><a href="#" data-toggle="dropdown"
               class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="assets/img/user.png"
                 class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>

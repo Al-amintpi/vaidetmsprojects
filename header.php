@@ -4,11 +4,17 @@
     require_once("functions.php");
 
     session_start();
-    if (!isset($_SESSION["em_user"])) {
+    if (!isset($_SESSION["em_user"]) AND !isset($_COOKIE['rememberUser'])) {
        header("location:login.php");
     }
 
-    $user_id = $_SESSION['em_user'][0]['u_id'];
+    if(isset($_COOKIE['rememberUser'])){
+        $user_id=$_COOKIE['rememberUser'];
+        
+    }
+    else{
+        $user_id = $_SESSION['em_user'][0]['u_id'];
+    }
 
  ?>
 <!DOCTYPE html>
@@ -36,6 +42,7 @@
     <link rel="stylesheet" type="text/css" href="assets/css/custom.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.css">
+    <link rel="stylesheet" href="admin/assets/bundles/summernote/summernote-bs4.css">
 
 
 </head>
@@ -112,6 +119,7 @@
                     </div>
                 </div>
             </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -142,6 +150,43 @@
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        <!-- Nav Item alert -->
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bell fa-fw"></i>
+                                <!-- Counter - Alerts -->
+                                <span class="badge badge-danger badge-counter" id="notification"></span>
+                            </a>
+                            <!-- Dropdown - Alerts -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                                <h6 class="dropdown-header">
+                                    Alerts Center
+                                </h6>
+                                <?php
+
+                                    $stm = $pdo->prepare("SELECT * FROM em_task WHERE user_id=? AND status=?");
+                                    $stm->execute(array($user_id,"Pending"));
+                                    $result = $stm->fetchAll(PDO::FETCH_ASSOC);
+                                    foreach($result as $row):
+
+                                 ?>
+                                <a class="dropdown-item d-flex align-items-center" href="ViewTask.php?tid=<?php echo $row['t_id']; ?>">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-primary">
+                                            <i class="fas fa-file-alt text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small text-gray-500">
+                                            <?php echo date('F d, Y',strtotime($row['date_time'])) ?>
+                                        </div>
+                                        <span class="font-weight-bold"><?php echo $row['task_name']; ?></span>
+                                    </div>
+                                </a>
+                               <?php endforeach; ?>
+                                <a class="dropdown-item text-center small text-gray-500" href="AllTask.php">Show All Task</a>
+                            </div>
+                        </li>
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
@@ -149,7 +194,7 @@
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
                                  <?php 
 
-                                    echo em_user($_SESSION['em_user'][0]['u_id'],'first_name')." ".em_user($_SESSION['em_user'][0]['u_id'],'last_name');
+                                    echo em_user($user_id,'first_name')." ".em_user($user_id,'last_name');
 
                                  ?>
                                 </span>
@@ -157,7 +202,7 @@
                                     src="
 
                                     <?php
-                                        $photo = em_user($_SESSION['em_user'][0]['u_id'],'photo');
+                                        $photo = em_user($user_id,'photo');
                                         if($photo == null){
                                             echo "assets/img/undraw_profile.svg";
                                         }else{

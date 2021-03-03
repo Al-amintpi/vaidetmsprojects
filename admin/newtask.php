@@ -6,7 +6,7 @@ if(isset($_POST['submit_task'])){
 	$task_name = $_POST['task_name'];
 	$task_details = $_POST['task_details'];
 	$submit_date = $_POST['task_deadline'];
-	$status = "pandding";
+	$status = "Pending";
 	$date_time = date('y-m-d');
 
 	if(empty($task_name) AND empty($task_details)){
@@ -59,7 +59,7 @@ if(isset($_POST['submit_task'])){
                     	</div>
                     	<div class="form-group">
                     		<label for="task_details">Task Details</label>
-                    		<textarea type="text" name="task_details" id="task_details" class="form-control"></textarea>
+                    		<textarea type="text" name="task_details" id="task_details" class="summernote"></textarea>
                     	</div>
                     	<div class="form-group">
                     		<label for="task_deadline">Deadline</label>

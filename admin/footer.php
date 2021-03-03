@@ -108,14 +108,88 @@
   <script src="assets/bundles/datatables/datatables.min.js"></script>
   <script src="assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
   <script src="assets/bundles/jquery-ui/jquery-ui.min.js"></script>
+  <script src="assets/bundles/summernote/summernote-bs4.js"></script>
   <!-- Page Specific JS File -->
   <script src="assets/js/page/datatables.js"></script>
   <!-- Template JS File -->
   <script src="assets/js/scripts.js"></script>
   <!-- Custom JS File -->
   <script src="assets/js/custom.js"></script>
+
+
+<!-- Admin Notification -->
+
+  <script type="text/javascript">
+$(document).ready(function(){
+
+    function notification(count0){
+        var caount0 = count0;
+        var postType = "AdNotification";
+        $.ajax({
+            type:"POST",
+            url:"../ajaxRequest.php",
+            dataType:'json',
+            data:{
+                Notification:postType,
+                count0:count0
+            },
+            success:function(response){
+                 
+                if(response.notiCount !=null){
+
+                    if(response.notiCount == 0){
+                        $("#adminnotification").hide();
+                    }
+                    else{
+                        $("#adminnotification").text(response.notiCount);
+                    } 
+                }  
+            }
+        });
+
+    }
+    
+    $(".dropdown-item").click(function(){
+      var DataId = $(this).data("id");
+      var Datatable = $(this).data("table");
+       
+      ReadNotification(Datatable,DataId);
+         
+        setTimeout(function(){
+            notification(count0=1);
+        },1000);
+        return false;
+    });
+
+notification(count0=1);
+
+});
+
+
+function ReadNotification(tableName,DataId){
+  var tableName=tableName;
+  var DataId =DataId;
+
+   $.ajax({
+            type:"POST",
+            url:"../ajaxRequest.php",
+            dataType:'json',
+            data:{
+                  tableName:tableName,
+                  DataId:DataId
+            },
+            success:function(response){
+              if(response.table_name =="em_class"){
+                setTimeout(function(){ window.location.href="Allclass.php";},1000);
+              }
+              if(response.table_name =="em_task"){
+                setTimeout(function(){ window.location.href="TaskView.php?tid="+response.dataID;},1000);
+
+              }
+            }
+});
+}
+
+  </script>
 </body>
-
-
-<!-- blank.html  21 Nov 2019 03:54:41 GMT -->
 </html>

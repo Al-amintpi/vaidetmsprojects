@@ -91,8 +91,9 @@
 		                $month = $_POST['month_name'];
 		                $year = $_POST['year_name'];
 		                $getDate = ($year."-".$month);
+		                echo $getDate;
 		                $enddate = date('t',strtotime($getDate));
-		                 
+		                echo $enddate; 
 		                for($i=$start_date; $i<=$enddate; $i++){
 		                	 
 		                	;?>

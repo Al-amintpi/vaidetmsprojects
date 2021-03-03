@@ -65,51 +65,54 @@
                         </td>
                         <td><?php echo $row['father_name']; ?></td>
                         <td>
+
                         	<a href="#" class="btn btn-success" data-toggle="modal" data-target="#viewModal<?php echo $row['u_id']; ?>"><i class="fa fa-eye"></i></a>
+
                          	<a href="#" class="btn btn-warning"><i class="fa fa-edit"></i></a> 
                          	<a href="#" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                         	 <div class="modal fade" id="viewModal<?php echo $row['u_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-					          aria-hidden="true">
-					          <div class="modal-dialog" role="document">
-					            <div class="modal-content">
-					              <div class="modal-header">
-					                <h5 class="modal-title" id="exampleModalLabel"><?php echo $row['first_name']." ".$row['last_name'];?></h5>
-					                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					                  <span aria-hidden="true">&times;</span>
-					                </button>
-					              </div>
-					              <div class="modal-body">
-					                 <table class="table">
-					                 	<tr>
-					                 		<td>Father's Name</td>
-					                 		<td><?php echo $row['father_name']; ?></td>
-					                 	</tr>
-					                 	<tr>
-					                 		<td>Mothers's Name</td>
-					                 		<td><?php echo $row['mother_name']; ?></td>
-					                 	</tr>
-					                 	<tr>
-					                 		<td>Blood Group</td>
-					                 		<td><?php echo $row['blood_group']; ?></td>
-					                 	</tr>
-					                 	<tr>
-					                 		<td> Birthday</td>
-					                 		<td><?php echo $row['birthday']; ?></td>
-					                 	</tr>
-					                 	<tr>
-					                 		<td>Education</td>
-					                 		<td><?php echo $row['edu']; ?></td>
-					                 	</tr>
-					                 	<tr>
-					                 		<td>Address</td>
-					                 		<td><?php echo $row['address']; ?></td>
-					                 	</tr>
-					                 </table>
-					              </div>
-					               
-					            </div>
-					          </div>
-					        </div>
+
+                        <div class="modal fade" id="viewModal<?php echo $row['u_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    					          aria-hidden="true">
+      					          <div class="modal-dialog" role="document">
+      					            <div class="modal-content">
+      					              <div class="modal-header">
+      					                <h5 class="modal-title" id="exampleModalLabel"><?php echo $row['first_name']." ".$row['last_name'];?></h5>
+      					                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      					                  <span aria-hidden="true">&times;</span>
+      					                </button>
+      					              </div>
+      					              <div class="modal-body">
+      					                 <table class="table">
+      					                 	<tr>
+      					                 		<td>Father's Name</td>
+      					                 		<td><?php echo $row['father_name']; ?></td>
+      					                 	</tr>
+      					                 	<tr>
+      					                 		<td>Mothers's Name</td>
+      					                 		<td><?php echo $row['mother_name']; ?></td>
+      					                 	</tr>
+      					                 	<tr>
+      					                 		<td>Blood Group</td>
+      					                 		<td><?php echo $row['blood_group']; ?></td>
+      					                 	</tr>
+      					                 	<tr>
+      					                 		<td> Birthday</td>
+      					                 		<td><?php echo $row['birthday']; ?></td>
+      					                 	</tr>
+      					                 	<tr>
+      					                 		<td>Education</td>
+      					                 		<td><?php echo $row['edu']; ?></td>
+      					                 	</tr>
+      					                 	<tr>
+      					                 		<td>Address</td>
+      					                 		<td><?php echo $row['address']; ?></td>
+      					                 	</tr>
+      					                 </table>
+      					              </div>
+      					               
+      					            </div>
+      					          </div>
+    					          </div>
                         </td>
                           </tr>
                       <?php endforeach; ?>

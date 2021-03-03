@@ -1,9 +1,16 @@
 <?php 
 
-$u_id = $_SESSION['em_user'][0]['u_id'];
-$mobile_verify_status = em_user($u_id,"mobile_verify");
+	if(isset($_COOKIE['rememberUser'])){
+        $u_id=$_COOKIE['rememberUser'];
+        
+    }
+    else{
+        $u_id = $_SESSION['em_user'][0]['u_id'];
+    }
+    
+	$mobile_verify_status = em_user($u_id,"mobile_verify");
 
-if(isset($_POST['mobile_verify_code'])){
+	if(isset($_POST['mobile_verify_code'])){
 
 	$user_mobile_number = em_user($u_id,'mobile');
 	$verification_code = rand(1000,9999);

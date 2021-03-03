@@ -5,6 +5,8 @@
     if(isset($_POST["login_submit"])){
         $user_mobile = $_POST['user_mobile'];
         $user_password = $_POST['user_password'];
+
+
         if (empty($user_password) OR empty($user_password)) {
             $error = "Mobile and Password is required";
         }
@@ -18,10 +20,22 @@
             if ($userCount == 1) {
                 $user_password = SHA1($user_password);
                 $db_Password = $userData[0]['password'];
+                $u_id = $userData[0]['u_id'];
 
                 if ($user_password == $db_Password) {
                     $_SESSION['em_user'] = $userData;
                     header('location:index.php');
+
+                    if(isset($_POST['remember'])){
+                       $remember = $_POST['remember'];
+                       if($remember == 1){
+                        setcookie('rememberUser',$u_id,time()+3600,'/');
+                       }
+                       else{
+                            setcookie('rememberUser',$u_id,time()-3600,'/');
+                       }
+                    }
+
                 }
                 else{
                     $error = "Mobile and password invalid";
@@ -95,13 +109,13 @@
                                             <input type="password" name="user_password" class="form-control form-control-user" id="password" placeholder="Password">
                                         </div>
 
-                                       <!--  <div class="form-group">
+                                        <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
+                                                <input type="checkbox" class="custom-control-input" value="1" name="remember" id="customCheck">
                                                 <label class="custom-control-label" for="customCheck">Remember
                                                     Me</label>
                                             </div>
-                                        </div> -->
+                                        </div>
 
                                         <input type="submit" name="login_submit" class="btn btn-primary btn-user btn-block" value="Login">
                                          

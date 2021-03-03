@@ -1,6 +1,12 @@
 <?php require_once('header.php'); ?>
 <?php
-	$u_id = $_SESSION['em_user'][0]['u_id'];
+	if(isset($_COOKIE['rememberUser'])){
+        $u_id=$_COOKIE['rememberUser'];
+        
+    }
+    else{
+        $u_id = $_SESSION['em_user'][0]['u_id'];
+    }
 	$mobile_verify_status = em_user($u_id, "mobile_verify");
 
 ?>

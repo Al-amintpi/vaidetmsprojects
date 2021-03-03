@@ -1,6 +1,13 @@
 <?php require_once('header.php');
 
-$u_id=$_SESSION['em_user'][0]['u_id'];
+if(isset($_COOKIE['rememberUser'])){
+        $u_id=$_COOKIE['rememberUser'];
+        
+}
+else{
+    $u_id = $_SESSION['em_user'][0]['u_id'];
+}
+
 $stm=$pdo->prepare("SELECT password FROM em_user WHERE u_id=?");
 $stm->execute(array($u_id));
 $user_data = $stm->fetchAll(PDO::FETCH_ASSOC);

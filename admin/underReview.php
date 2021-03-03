@@ -48,11 +48,17 @@
                         				else if ($status == "Modification") {
                         					echo "<span class='badge badge-danger'>Modification</span>";
                         				}
+                                        else if ($status == "NotApproved") {
+                                            echo "<span class='badge badge-primary'>Not Approved</span>";
+                                        }
+                                        else if ($status == "Completed") {
+                                            echo "<span class='badge badge-success'>Completed</span>";
+                                        }
                         			 ?>
                         			
                         		</td>
                         		<td>
-                        			 <a href="#" class="btn btn-success"><i class="fa fa-eye"></i>View</a> 
+                        			 <a href="TaskView.php?tid=<?php echo $row['t_id'];?>" class="btn btn-success"><i class="fa fa-eye"></i>View</a> 
                         		</td>
                         	</tr>
                         <?php endforeach; ?>

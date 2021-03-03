@@ -37,7 +37,7 @@
                         		<td><?php echo date('d-M-Y',strtotime($row['submit_date_time'])); ?></td>
                         		<td><span class="badge badge-success">Complete</span></td>
                         		<td>
-                        			 <a href="#" class="btn btn-success"><i class="fa fa-eye"></i>View</a> 
+                        			 <a href="TaskView.php?tid=<?php echo $row['t_id'];?>" class="btn btn-success"><i class="fa fa-eye"></i>View</a> 
                         		</td>
                         	</tr>
                         <?php endforeach; ?>

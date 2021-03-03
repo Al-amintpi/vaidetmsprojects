@@ -3,7 +3,13 @@ require_once('header.php');
 require_once('config.php');
 
 
-$u_id = $_SESSION['em_user'][0]['u_id'];
+if(isset($_COOKIE['rememberUser'])){
+        $u_id=$_COOKIE['rememberUser'];
+        
+}
+else{
+    $u_id = $_SESSION['em_user'][0]['u_id'];
+}
 
 
 if (isset($_POST["upload_profile"])){
